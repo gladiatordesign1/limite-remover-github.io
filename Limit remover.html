@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Domains</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <h1>Extract Domains from Log</h1>
+    <textarea id="inputLog" placeholder="Paste your logs here..."></textarea>
+	
+	
+	
+	  <button onclick="extractDomains()" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">
+            Compare and Remove
+        </span>
+    </button>
+
+	
+	
+    <textarea id="outputDomains" placeholder="Extracted domains will appear here..." readonly></textarea>
+
+    <script>
+        function extractDomains() {
+            // Get the input text
+            const inputText = document.getElementById('inputLog').value;
+
+            // Regular expression to match domains inside []
+            const domainRegex = /\[([^\]]+)\]/g;
+
+            let domains = [];
+            let match;
+            while ((match = domainRegex.exec(inputText)) !== null) {
+                // Extract the domain part from the match
+                const domain = match[1].split(' ')[0];
+                if (domain && !domains.includes(domain)) {
+                    domains.push(domain);
+                }
+            }
+
+            // Set the output text area with extracted domains
+            document.getElementById('outputDomains').value = domains.join('\n');
+        }
+    </script>
+</body>
+</html>
